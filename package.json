@@ -1,0 +1,19 @@
+{
+  "name": "devtinder-backend",
+  "version": "1.0.0",
+  "description": "Tinder For Dev backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev":"nodemon src/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "js"
+  ],
+  "author": "Utkarsh Srivastav",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
