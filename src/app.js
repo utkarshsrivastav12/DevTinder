@@ -14,21 +14,57 @@ const app = express();// instance of an express.js application
 
 //order matters in routing 
 // This will only handle get call to /user 
-app.get("/user",(req,res)=>{
-    res.send({firstName:"Utkarsh",
-lastName :"Srivastav"
- } )
-})
+// app.get("/user",(req,res)=>{
+//     res.send({firstName:"Utkarsh",
+// lastName :"Srivastav"
+//  } )
+// })
 
-app.post("/user",(req,res)=>{
-  //saving data to DB.
-    res.send("Data Successfully saved to the db");
-})
+// app.post("/user",(req,res)=>{
+//   //saving data to DB.
+//     res.send("Data Successfully saved to the db");
+// })
+
+// /user,usr both are work because of ? mark e is a optional
+// app.get("/use?r", (req, res) => {
+//     res.send({
+//         firstName: "Utkarsh",
+//         lastName: "Srivastav"
+//     })
+// });
 
 
-app.listen(3000, ()=>{
-    console.log("Server is successfully listening on port 3000....")
-} );
+app.use(
+  "/user", 
+  (req, res,next) => {
+  console.log("Handling the route user!!");
+   next();
+  // res.send("Response 1st!!");  
+ 
+}, (req, res,next) => {
+  console.log("Handling the route user 2!!");
+  // res.send("Response 2nd!!");
+  next();
+}
+, (req, res,next) => {
+  console.log("Handling the route user 3!!");
+  // res.send("Response 3rd!!");
+  next();
+}
+, (req, res ,next) => {
+  console.log("Handling the route user 4!!");
+  // res.send("Response 4th!!");
+  next();
+}
+, (req, res ,next) => {
+  console.log("Handling the route user 5!!");
+  res.send("Response 5th!!");
+  // next();
+}
+);
+app.listen(3000, () => {  
+  console.log("Server is successfully listening on port 3000....")
+});
 
 
 
