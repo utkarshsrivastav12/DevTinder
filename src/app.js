@@ -80,26 +80,48 @@ const app = express();// instance of an express.js application
 //     res.send ("2nd Reute handlee")
 //   }
 // )
-  const {adminAuth,userAuth} = require("./middlewares/auth");
+  // const {adminAuth,userAuth} = require("./middlewares/auth");
 
 //Handle Auth middleware  for only GET requests GET,POST,..... requests handle 
-app.use("/admin",adminAuth);
+// app.use("/admin",adminAuth);
 // app.user("user",userAuth);
-app.post("/user/login",(req,res)=>{
-res.send("User logged is successfully")
+// app.post("/user/login",(req,res)=>{
+// res.send("User logged is successfully")
+// });
+
+
+// app.use("/user/data", userAuth,(req, res) => {
+//   res.send("user data sent")
+// });
+
+// app.get("/admin/getAllData", (req, res) => {
+//   res.send("All data sent");
+// });
+// app.get("/admin/deleteUser", (req, res) => {
+//   res.send("Delete a user");
+// })
+
+//HANDLE ERROR 
+
+
+app.use("/",(err,req,res,next)=>{
+  if(err){
+    res.status(500).send("Something went wrong contach with admnistrator");
+  }
 });
 
 
-app.use("/user/data", userAuth,(req, res) => {
-  res.send("user data sent")
+app.get("/getUserData",(req,res)=>{
+  try{
+  throw new Error("sfbdvisd");
+  res.send("User Data sent");
+  }
+  catch{
+    res.status(500).send("Some Error contact support team");
+  }
 });
 
-app.get("/admin/getAllData", (req, res) => {
-  res.send("All data sent");
-});
-app.get("/admin/deleteUser", (req, res) => {
-  res.send("Delete a user");
-})
+
 app.listen(3000, () => {
   console.log("Server is successfully listening on port 3000....")
 });
