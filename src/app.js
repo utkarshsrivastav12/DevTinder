@@ -33,36 +33,74 @@ const app = express();// instance of an express.js application
 //     })
 // });
 
+// app.use("/route", rh , [rh1 , rh2],rh3,rh5);
+// app.use(
+//   "/user", 
+//   (req, res,next) => {
+//   console.log("Handling the route user!!");
+//    next();
+//   // res.send("Response 1st!!");  
 
-app.use(
-  "/user", 
-  (req, res,next) => {
-  console.log("Handling the route user!!");
-   next();
-  // res.send("Response 1st!!");  
- 
-}, (req, res,next) => {
-  console.log("Handling the route user 2!!");
-  // res.send("Response 2nd!!");
-  next();
-}
-, (req, res,next) => {
-  console.log("Handling the route user 3!!");
-  // res.send("Response 3rd!!");
-  next();
-}
-, (req, res ,next) => {
-  console.log("Handling the route user 4!!");
-  // res.send("Response 4th!!");
-  next();
-}
-, (req, res ,next) => {
-  console.log("Handling the route user 5!!");
-  res.send("Response 5th!!");
-  // next();
-}
-);
-app.listen(3000, () => {  
+// }, (req, res,next) => {
+//   console.log("Handling the route user 2!!");
+//   // res.send("Response 2nd!!");
+//   next();
+// }
+// , (req, res,next) => {
+//   console.log("Handling the route user 3!!");
+//   // res.send("Response 3rd!!");
+//   next();
+// }
+// , (req, res ,next) => {
+//   console.log("Handling the route user 4!!");
+//   // res.send("Response 4th!!");
+//   next();
+// }
+// , (req, res ,next) => {
+//   console.log("Handling the route user 5!!");
+//   res.send("Response 5th!!");
+//   // next();
+// }
+// );
+
+
+// app.get (
+//   "/user",
+//   (req,res,next)=>{
+//     console.log("Handling route user");
+//     next();
+//   }
+// );
+
+
+// app.get (
+//   "/user",
+//   (req,res,next)=>{
+//     console.log("Handling route user");
+//     res.send ("2nd Reute handlee")
+//   }
+// )
+  const {adminAuth,userAuth} = require("./middlewares/auth");
+
+//Handle Auth middleware  for only GET requests GET,POST,..... requests handle 
+app.use("/admin",adminAuth);
+// app.user("user",userAuth);
+app.post("/user/login",(req,res)=>{
+res.send("User logged is successfully")
+});
+
+
+app.use("/user/data", userAuth,(req, res) => {
+  res.send("user data sent")
+});
+
+app.get("/admin/getAllData", (req, res) => {
+  res.send("All data sent");
+});
+app.get("/admin/deleteUser", (req, res) => {
+  res.send("Delete a user");
+})
+app.listen(3000, () => {
   console.log("Server is successfully listening on port 3000....")
 });
 
